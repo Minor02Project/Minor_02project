@@ -1,7 +1,5 @@
 from charset_normalizer import detect
 import cv2
-import random
-import os
 
 
 
@@ -46,8 +44,7 @@ ageNet=cv2.dnn.readNet(ageModel,ageProto)
 genderNet=cv2.dnn.readNet(genderModel,genderProto)
 
 MODEL_MEAN_VALUES = (78.4263377603, 87.7689143744, 114.895847746)
-#ageList = ['(0-4)', '(5-12)', '(13-17)', '(18-25)', '(26-32)', '(33-45)', '(46-60)', '(61-100)']
-ageList = ['0', '1', '10', '20', '30', '43', '60', '70']
+ageList = ['(0-2)', '(4-6)', '(8-12)', '(15-20)', '(25-32)', '(38-43)', '(48-53)', '(60-100)']
 genderList = ['Male', 'Female']
 
 
@@ -77,25 +74,7 @@ while True:
         cv2.rectangle(frame,(bbox[0], bbox[1]-30), (bbox[2], bbox[1]), (0,0,0),-1) 
         cv2.putText(frame, label, (bbox[0], bbox[1]-10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255,255,255), 2)
 
-      #  print(age)
-        if (int(age)<100) :
-            print("Hello")
-            filename=random.choice(os.listdir("0-100/"))
-            cap = cv2.VideoCapture("0-100/"+filename)
-
-            # Read until video is completed
-            while(cap.isOpened()):
-            # Capture frame-by-frame
-                ret, frame1 = cap.read()
-                if ret == True:
-                # Display the resulting frame
-                            cv2.imshow('Frame',frame1)
-                            # Press Q on keyboard to  exit
-                            if cv2.waitKey(25) & 0xFF == ord('q'):
-                             break
-
-
-
+        print(age)
     
 
     cv2.imshow("Age-Gender",frame)
